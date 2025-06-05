@@ -1,9 +1,8 @@
 import * as core from "@actions/core";
-import { exec } from "child_process";
+import { exec, spawn } from "child_process";
 import { promisify } from "util";
-import { unlink, writeFile, stat } from "fs/promises";
+import { stat, unlink, writeFile } from "fs/promises";
 import { createWriteStream } from "fs";
-import { spawn } from "child_process";
 
 const execAsync = promisify(exec);
 
@@ -47,6 +46,8 @@ export function prepareRunConfig(
   if (options.mcpConfig) {
     claudeArgs.push("--mcp-config", options.mcpConfig);
   }
+
+  claudeArgs.push("--model", "claude-sonnet-4-20250514");
 
   return {
     claudeArgs,
